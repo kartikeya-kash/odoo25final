@@ -1,4 +1,3 @@
-
 CREATE DATABASE IF NOT EXISTS quickcourt_db;
 USE quickcourt_db;
 
@@ -141,7 +140,6 @@ CREATE TABLE payment_transactions (
   FOREIGN KEY (billing_address_id) REFERENCES user_addresses(id)
 );
 
--- Reviews Table
 CREATE TABLE reviews (
   id CHAR(36) PRIMARY KEY,
   venue_id CHAR(36) NOT NULL,
@@ -163,7 +161,6 @@ CREATE TABLE reviews (
   FOREIGN KEY (booking_id) REFERENCES bookings(id)
 );
 
--- Notifications Table
 CREATE TABLE notifications (
   id CHAR(36) PRIMARY KEY,
   user_id CHAR(36) NOT NULL,
@@ -176,7 +173,6 @@ CREATE TABLE notifications (
   FOREIGN KEY (user_id) REFERENCES user_profiles(id) ON DELETE CASCADE
 );
 
--- Platform Analytics Table
 CREATE TABLE platform_analytics (
   id CHAR(36) PRIMARY KEY,
   date DATE NOT NULL,
@@ -190,7 +186,6 @@ CREATE TABLE platform_analytics (
   UNIQUE(date)
 );
 
--- Function to generate UUID (MySQL 8.0+)
 DELIMITER //
 CREATE FUNCTION generate_uuid() 
 RETURNS CHAR(36) DETERMINISTIC
@@ -199,7 +194,6 @@ BEGIN
 END //
 DELIMITER ;
 
--- Trigger to update venue rating when a review is added or updated
 DELIMITER //
 CREATE TRIGGER update_venue_rating_trigger
 AFTER INSERT ON reviews
@@ -214,7 +208,6 @@ BEGIN
 END //
 DELIMITER ;
 
--- Trigger to update venue rating when a review is updated
 DELIMITER //
 CREATE TRIGGER update_venue_rating_update_trigger
 AFTER UPDATE ON reviews
@@ -229,7 +222,6 @@ BEGIN
 END //
 DELIMITER ;
 
--- Trigger to update user booking stats when a booking is confirmed
 DELIMITER //
 CREATE TRIGGER update_user_booking_stats_trigger
 AFTER UPDATE ON bookings
@@ -246,7 +238,6 @@ BEGIN
 END //
 DELIMITER ;
 
--- Trigger to update platform analytics when a booking is confirmed
 DELIMITER //
 CREATE TRIGGER update_platform_analytics_trigger
 AFTER INSERT ON bookings
@@ -262,37 +253,28 @@ BEGIN
 END //
 DELIMITER ;
 
--- Indexes for performance optimization
-
--- Indexes for user_profiles
 CREATE INDEX idx_user_profiles_email ON user_profiles(email);
 CREATE INDEX idx_user_profiles_role ON user_profiles(role);
 
--- Indexes for venues
 CREATE INDEX idx_venues_owner ON venues(owner_id);
 CREATE INDEX idx_venues_city ON venues(city);
 CREATE INDEX idx_venues_rating ON venues(average_rating);
 
--- Indexes for courts
 CREATE INDEX idx_courts_venue ON courts(venue_id);
 CREATE INDEX idx_courts_sport ON courts(sport_type);
 
--- Indexes for bookings
 CREATE INDEX idx_bookings_customer ON bookings(customer_id);
 CREATE INDEX idx_bookings_venue ON bookings(venue_id);
 CREATE INDEX idx_bookings_court ON bookings(court_id);
 CREATE INDEX idx_bookings_date ON bookings(booking_date);
 CREATE INDEX idx_bookings_status ON bookings(status);
 
--- Indexes for payment_transactions
 CREATE INDEX idx_payments_booking ON payment_transactions(booking_id);
 CREATE INDEX idx_payments_status ON payment_transactions(status);
 
--- Indexes for reviews
 CREATE INDEX idx_reviews_venue ON reviews(venue_id);
 CREATE INDEX idx_reviews_user ON reviews(user_id);
 CREATE INDEX idx_reviews_rating ON reviews(rating);
 
--- Indexes for notifications
 CREATE INDEX idx_notifications_user ON notifications(user_id);
 CREATE INDEX idx_notifications_read ON notifications(is_read);

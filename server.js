@@ -37,10 +37,6 @@ testDatabaseConnection();
 
 // USER MANAGEMENT ENDPOINTS
 
-/**
- * Get user profile data
- * GET /api/users/:userId/profile
- */
 app.get('/api/users/:userId/profile', async (req, res) => {
   try {
     const { userId } = req.params;
@@ -71,10 +67,7 @@ app.get('/api/users/:userId/profile', async (req, res) => {
   }
 });
 
-/**
- * Store new user data from registration page
- * POST /api/users/storenewuserdata
- */
+
 app.post('/api/users/storenewuserdata', async (req, res) => {
   try {
     const { 
@@ -122,9 +115,8 @@ app.post('/api/users/verifyotp', async (req, res) => {
   try {
     const { email, otp } = req.body;
     
-    // In a real implementation, you would verify the OTP against what was sent
     // For this example, we'll simulate OTP verification with a mock check
-    const isValidOtp = otp === '123456' || otp.length === 6; // Mock validation
+    const isValidOtp = otp === '123456' || otp.length === 6; 
     
     if (!isValidOtp) {
       return res.status(400).json({ error: 'Invalid OTP' });
@@ -140,25 +132,16 @@ app.post('/api/users/verifyotp', async (req, res) => {
   }
 });
 
-/**
- * Send OTP for user verification
- * POST /api/users/sendotp
- */
+
 app.post('/api/users/sendotp', async (req, res) => {
   try {
     const { email, phone_number } = req.body;
     
-    // In a real implementation, you would generate and send an OTP
-    // For this example, we'll simulate sending an OTP
-    const mockOtp = '123456'; // In a real app, generate a random OTP
+    const mockOtp = '123456'; 
     
-    // Mock storing the OTP for later verification
-    // In a real app, you would store this securely with an expiration
     
     res.json({
       message: 'OTP sent successfully',
-      // In a production environment, don't return the OTP in the response
-      // This is just for demonstration purposes
       otp: mockOtp
     });
   } catch (error) {
@@ -168,7 +151,6 @@ app.post('/api/users/sendotp', async (req, res) => {
 });
 
 /**
- * Register a new user
  * POST /api/users/register
  */
 app.post('/api/users/register', async (req, res) => {
@@ -193,8 +175,6 @@ app.post('/api/users/register', async (req, res) => {
       [email, full_name, phone_number, role]
     );
     
-    // In a real implementation, you would also create the auth.users entry
-    // and handle password hashing through Supabase or another auth provider
     
     res.status(201).json({
       message: 'User registered successfully',
@@ -246,7 +226,6 @@ app.post('/api/venues', async (req, res) => {
 });
 
 /**
- * Get venue details
  * GET /api/venues/:venueId
  */
 app.get('/api/venues/:venueId', async (req, res) => {
@@ -276,12 +255,8 @@ app.get('/api/venues/:venueId', async (req, res) => {
   }
 });
 
-// =====================================================================================
-// COURT MANAGEMENT ENDPOINTS
-// =====================================================================================
 
 /**
- * Add a court to a venue
  * POST /api/venues/:venueId/courts
  */
 app.post('/api/venues/:venueId/courts', async (req, res) => {
@@ -325,7 +300,6 @@ app.post('/api/venues/:venueId/courts', async (req, res) => {
 });
 
 /**
- * Get courts for a venue
  * GET /api/venues/:venueId/courts
  */
 app.get('/api/venues/:venueId/courts', async (req, res) => {
@@ -353,12 +327,8 @@ app.get('/api/venues/:venueId/courts', async (req, res) => {
   }
 });
 
-// =====================================================================================
-// BOOKING MANAGEMENT ENDPOINTS
-// =====================================================================================
 
 /**
- * Create a new booking
  * POST /api/bookings
  */
 app.post('/api/bookings', async (req, res) => {
@@ -389,7 +359,6 @@ app.post('/api/bookings', async (req, res) => {
 });
 
 /**
- * Get user bookings
  * GET /api/users/:userId/bookings
  */
 app.get('/api/users/:userId/bookings', async (req, res) => {
@@ -426,12 +395,8 @@ app.get('/api/users/:userId/bookings', async (req, res) => {
   }
 });
 
-// =====================================================================================
-// PAYMENT MANAGEMENT ENDPOINTS
-// =====================================================================================
 
 /**
- * Process a payment for a booking
  * POST /api/payments
  */
 app.post('/api/payments', async (req, res) => {
@@ -469,10 +434,6 @@ app.post('/api/payments', async (req, res) => {
     res.status(500).json({ error: 'Failed to process payment' });
   }
 });
-
-// =====================================================================================
-// USER PAYMENT METHODS ENDPOINTS
-// =====================================================================================
 
 /**
  * Add a new payment method for a user
@@ -807,7 +768,6 @@ app.post('/api/analytics/venueanalytics', async (req, res) => {
     );
     
     if (existingEntry.length > 0) {
-      // Update existing entry
       await pool.query(
         `UPDATE venue_analytics SET 
          total_views = ?, search_appearances = ?, 
@@ -847,20 +807,12 @@ app.post('/api/analytics/venueanalytics', async (req, res) => {
   }
 });
 
-// =====================================================================================
-// REVIEW MANAGEMENT ENDPOINTS
-// =====================================================================================
 
-/**
- * Add a review for a venue
- * POST /api/venues/:venueId/reviews
- */
 app.post('/api/venues/:venueId/reviews', async (req, res) => {
   try {
     const { venueId } = req.params;
     const { user_id, rating, comment, photos = [] } = req.body;
     
-    // Check if venue exists
     const [venues] = await pool.query(
       'SELECT id FROM venues WHERE id = ?',
       [venueId]
@@ -878,7 +830,6 @@ app.post('/api/venues/:venueId/reviews', async (req, res) => {
       [venueId, user_id, rating, comment, JSON.stringify(photos)]
     );
     
-    // Update venue rating (in a real implementation, this would be done with a trigger)
     await pool.query(
       `UPDATE venues v 
        SET rating = (SELECT AVG(rating) FROM reviews WHERE venue_id = ?), 
@@ -897,10 +848,7 @@ app.post('/api/venues/:venueId/reviews', async (req, res) => {
   }
 });
 
-/**
- * Get reviews for a venue
- * GET /api/venues/:venueId/reviews
- */
+
 app.get('/api/venues/:venueId/reviews', async (req, res) => {
   try {
     const { venueId } = req.params;
@@ -981,10 +929,6 @@ app.post('/api/notifications', async (req, res) => {
   }
 });
 
-/**
- * Get user notifications
- * GET /api/users/:userId/notifications
- */
 app.get('/api/users/:userId/notifications', async (req, res) => {
   try {
     const { userId } = req.params;
@@ -1026,10 +970,7 @@ app.get('/api/users/:userId/notifications', async (req, res) => {
   }
 });
 
-/**
- * Mark notification as read
- * PUT /api/notifications/:notificationId/read
- */
+
 app.put('/api/notifications/:notificationId/read', async (req, res) => {
   try {
     const { notificationId } = req.params;
@@ -1313,7 +1254,6 @@ app.get('/api/users/:userId/favorites', async (req, res) => {
       [userId]
     );
     
-    // Parse JSON fields
     const formattedFavorites = favorites.map(favorite => ({
       ...favorite,
       amenities: JSON.parse(favorite.amenities || '[]'),
