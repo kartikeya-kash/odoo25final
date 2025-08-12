@@ -18,7 +18,6 @@ const LoginHeader = () => {
         </div>
         <h1 className="text-3xl font-bold text-foreground">QuickCourt</h1>
       </div>
-
       {/* Welcome Message */}
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold text-foreground">Welcome Back</h2>
