@@ -15,7 +15,7 @@ const LoginBackground = () => {
       src: "https://images.pixabay.com/photo/2016/11/29/13/14/attractive-1869761_1280.jpg?auto=compress&cs=tinysrgb&w=2070&q=80",
       alt: "Modern sports facility"
     }
-  ];
+  ];  
 
   const randomImage = backgroundImages?.[Math.floor(Math.random() * backgroundImages?.length)];
 
