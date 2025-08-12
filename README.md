@@ -1,5 +1,13 @@
 
-#video link: https://drive.google.com/file/d/1984_UY_YKtYTfNAHjgQIUkOZg75Bgk3S/view?usp=sharing 
+#video link solution: https://drive.google.com/file/d/1984_UY_YKtYTfNAHjgQIUkOZg75Bgk3S/view?usp=sharing 
+
+#team info
+team number:85
+team:1) kartikeya Sharma
+     2) Anirudh Sharma
+     3) Ayush Thakur
+
+
 
 # React
 
