@@ -9,19 +9,8 @@ import SportCategoryTiles from './components/SportCategoryTiles';
 import { useNavigation } from '../../components/ui/RoleBasedNavigation';
 import { apiUtils } from '../../utils/api';
 
-/**
- * Home Dashboard - Public landing page (no authentication required)
- * 
- * Key Features:
- * - Public access - no login required
- * - Dynamic content based on authentication status
- * - Backend API integration for user data when logged in
- * - Graceful fallback for anonymous users
- * - Enhanced error handling and loading states
- * - Footer included on all pages
- */
+
 const HomeDashboard = () => {
-  // Get authentication context
   const { isAuthenticated, userRole } = useNavigation();
 
   const [userName, setUserName] = useState('Guest');
@@ -44,14 +33,12 @@ const HomeDashboard = () => {
         if (isAuthenticated) {
           console.log('Loading personalized dashboard for authenticated user...');
 
-          // TODO: Replace with actual API endpoints when backend is ready
-          // Example backend API calls:
+      
 
-          // 1. Get user profile data
           // const userResponse = await apiClient.get('/api/user/profile');
           // const userData = userResponse.data;
 
-          // 2. Get user booking statistics  
+          
           // const bookingStatsResponse = await apiClient.get('/api/user/booking-stats');
           // const bookingStats = bookingStatsResponse.data;
 

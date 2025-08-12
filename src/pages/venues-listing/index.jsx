@@ -27,7 +27,7 @@ const VenuesListing = () => {
     amenities: []
   });
   const [sortBy, setSortBy] = useState('recommended');
-  const [viewMode, setViewMode] = useState('grid'); // grid, map
+  const [viewMode, setViewMode] = useState('grid'); 
   const [currentPage, setCurrentPage] = useState(1);
   const [venuesPerPage] = useState(12);
 
