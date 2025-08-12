@@ -6,7 +6,8 @@ import RoleSelectionCard from './components/RoleSelectionCard';
 import RegistrationForm from './components/RegistrationForm';
 import OTPInput from './components/OTPInput';
 
-import Icon from '../../components/AppIcon';
+import Icon from '../../components/AppIcon';          
+
 
 import { useNavigation } from '../../components/ui/RoleBasedNavigation';
 
