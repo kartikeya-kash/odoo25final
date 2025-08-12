@@ -11,7 +11,7 @@ const SportCategoryTiles = () => {
       name: "Basketball",
       icon: "Circle",
       venueCount: 24,
-      avgPrice: 35,
+      avgPrice: 35,    
       image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=300&h=200&fit=crop",
       color: "from-orange-500 to-red-500",
       description: "Indoor and outdoor basketball courts"
